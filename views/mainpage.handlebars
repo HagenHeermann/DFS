@@ -1,0 +1,44 @@
+<div class ="header">
+    <ul>
+        <li><div class="active"><a href="/">Dorm File Server</a></div><li>
+        <li><div class="active"><a href="/About">About</a></div></li>
+        <li><div class="active"><a href="/Legal">Legal</a></div></li>
+    </ul>
+</div>
+
+<h1>Welcome to shit FTP PETALUL</h1>
+<div class="errorbox">
+    {{#if uploaderr}}
+        <div class="error">{{uploaderr}}</div>
+    {{/if}}
+
+    {{#if errors}}
+        <div class="error">{{msg}}</div>
+    {{/if}}
+</div>
+
+<div class="upload_container">
+    Upload:<br>
+    <form action="/file_upload" name="upload" method = "POST" enctype="multipart/form-data">
+        <input type="file" name="file" size="50"><br>
+        <input type="submit" value="Upload File">
+    </form>
+</div>
+
+<br>
+
+<div class = "file_container">
+    <ul id="file_list">
+        {{#each filenames}}
+            <li ondblclick="dl()">{{this}}</li>
+        {{/each}}
+    </ul>
+</div>
+
+<script>
+function dl()
+{
+    var list = document.getElementById('file_list');
+    var selected_file = list.options[list.selectedIndex].text;
+}
+</script>
