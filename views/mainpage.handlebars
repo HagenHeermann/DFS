@@ -26,11 +26,23 @@
 </div>
 
 <br>
+<script>
+    function(dl)
+    {
+        var xhr = new XMLHttpRequest();
+        var url= "/download";
+        var file_data = JSON.stringify({"filename":dl});
+        xhr.open("POST",url,true);
+        xhr.setRequestHeader("Content-type","application/json");
+        xhr.send(file_data);
+        console.log("clicked");
+    }
+</script>
 
 <div class = "file_container">
     <ul id="file_list">
         {{#each filenames}}
-            <li ondblclick="dl()">{{this}}</li>
+            <li ondblclick="dl(this.text)">{{this}}</li>
         {{/each}}
     </ul>
 </div>

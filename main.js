@@ -212,7 +212,7 @@ app.post('/file_upload',function(req,resp){
 })
 
 /* Download GET */
-app.get('/download',function(req,resp)
+app.post('/download',function(req,resp)
 {
     /* Check if the user has selected a file for its request */
     req.checkBody('filename',"No file selected").notEmpty();
