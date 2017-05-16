@@ -217,15 +217,18 @@ app.post('/download',function(req,resp)
     /* Check if the user has selected a file for its request */
     req.checkBody('filename',"No file selected").notEmpty();
     var errors = req.validationErrors();
-    
+    console.log(errors);
+    console.log("1");
     if(errors)
     {
         /* Rendering the mainpage again with the error mesages */
         var filenames = file_listing();
         resp.render('mainpage',{errors,filenames});
+        console.log("2");
     }
     else
     {
+        console.log("3");
         /* Getting all the infos for the piping */
         var filename = req.body.filename;
         var file = path.join(__dirname,"Files",filename);

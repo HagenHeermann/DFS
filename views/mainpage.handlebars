@@ -13,7 +13,9 @@
     {{/if}}
 
     {{#if errors}}
-        <div class="error">{{msg}}</div>
+        {{#each errors}}
+            <div class="error">{{msg}}</div>
+        {{/each}}
     {{/if}}
 </div>
 
@@ -27,11 +29,11 @@
 
 <br>
 <script>
-    function(dl)
+    function dl(data)
     {
         var xhr = new XMLHttpRequest();
         var url= "/download";
-        var file_data = JSON.stringify({"filename":dl});
+        var file_data = JSON.stringify({"filename":data});
         xhr.open("POST",url,true);
         xhr.setRequestHeader("Content-type","application/json");
         xhr.send(file_data);
@@ -47,10 +49,3 @@
     </ul>
 </div>
 
-<script>
-function dl()
-{
-    var list = document.getElementById('file_list');
-    var selected_file = list.options[list.selectedIndex].text;
-}
-</script>
