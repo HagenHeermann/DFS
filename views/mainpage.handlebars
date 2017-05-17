@@ -7,6 +7,7 @@
 </div>
 
 <h1>Welcome to shit FTP PETALUL</h1>
+<br>
 <div class="errorbox">
     {{#if uploaderr}}
         <div class="error">{{uploaderr}}</div>
@@ -18,7 +19,7 @@
         {{/each}}
     {{/if}}
 </div>
-
+<br>
 <div class="upload_container">
     Upload:<br>
     <form action="/file_upload" name="upload" method = "POST" enctype="multipart/form-data">
@@ -31,6 +32,7 @@
 <script>
     function dl(data)
     {
+        console.log(data);
         var xhr = new XMLHttpRequest();
         var url= "/download";
         var file_data = JSON.stringify({"filename":data});
@@ -41,11 +43,40 @@
     }
 </script>
 
+<script>
+    function dwnl(fname,ftype)
+    {
+        console.log(fname);
+        console.log(ftype);
+
+        var xhr = new XMLHttpRequest();
+        var url = "/download";
+        var file_data = JSON.stringify({"filename":fname,"filetype":ftype});
+        xhr.open("POST",url,true);
+        xhr.setRequestHeader("Content-type","application/json");
+        xhr.send(file_data);
+    }
+</script>
+
+
 <div class = "file_container">
     <ul id="file_list">
         {{#each filenames}}
-            <li ondblclick="dl(this.text)">{{this}}</li>
+            <li ondblclick="dl(this.id)" id={{this}}>{{this}}</li>
         {{/each}}
     </ul>
+    <br>
+    <table>
+        <tr>
+            <th> filename </th>
+            <th> filetype </th>
+        </tr>
+        {{#each file}}
+        <tr>
+            <td>{{fname}}</td>
+            <td>{{ftype}}</td>
+        </tr>
+        {{/each}}
+    </table>
 </div>
 

@@ -1,3 +1,26 @@
+/*
+TODO LIST:
+    1.0 goals:
+    - changing the file display from a listing to a table 
+    - regarding the previous todo changing all the requests for the mainpage to request that send
+      a json {fname:"filename",ftype:"filetype"} to the handlebars module so they get put in to 
+      the html file that gets send
+    - Getting the onclick action going on the server side so the download starts
+    - Encryption on client side for passwords and username
+    - Only Encrypted user data in the databas 
+    - Better CSS styling with bootstrap
+    
+    2.0 goals:
+    - changing the db to mongo db
+    - modulise more for easyer understanding and debugging
+    - Use of session cookies
+    - directory creation in the Files directory so users can structure files they upload
+
+    3.0 goals:
+    -
+ */
+
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -217,6 +240,7 @@ app.post('/download',function(req,resp)
     /* Check if the user has selected a file for its request */
     req.checkBody('filename',"No file selected").notEmpty();
     var errors = req.validationErrors();
+    console.log(req.body);
     console.log(errors);
     console.log("1");
     if(errors)
