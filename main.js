@@ -9,12 +9,15 @@ TODO LIST:
     - Encryption on client side for passwords and username
     - Only Encrypted user data in the databas 
     - Better CSS styling with bootstrap
-    
+    - basicly get the server up and running in an alpha state
+    - summ up mainpage rendering in one function in the db module <- priority
+
     2.0 goals:
     - changing the db to mongo db
     - modulise more for easyer understanding and debugging
     - Use of session cookies
     - directory creation in the Files directory so users can structure files they upload
+    - save file information in the database with uploader information time etc.
 
     3.0 goals:
     -
@@ -189,6 +192,8 @@ function file_listing()
     var filenames = [];
     fs.readdir(__FilesDir,function(err,files){
         files.forEach(file=>{
+            var ftype = mime.lookup(file);
+            console.log(ftype);
             filenames.push(file);
         })
     });

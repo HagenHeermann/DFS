@@ -138,6 +138,8 @@ module.exports =
                         var filenames = [];
                         fs.readdir(__FilesDir,function(err,files){
                             files.forEach(file=>{
+                                var ftype = mime.lookup(file);
+                                console.log(ftype);
                                 filenames.push(file);
                             })
                         });
@@ -191,6 +193,8 @@ module.exports =
                         var filenames = [];
                         fs.readdir(__FilesDir,function(err,files){
                             files.forEach(file=>{
+                                var ftype = mime.lookup(file);
+                                console.log(ftype);
                                 filenames.push(file);
                             })
                         });
