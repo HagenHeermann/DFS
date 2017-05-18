@@ -60,18 +60,12 @@
 
 
 <div class = "file_container">
-    <ul id="file_list">
-        {{#each filenames}}
-            <li ondblclick="dl(this.id)" id={{this}}>{{this}}</li>
-        {{/each}}
-    </ul>
-    <br>
     <table>
         <tr>
             <th> filename </th>
             <th> filetype </th>
         </tr>
-        {{#each file}}
+        {{#each s_files}}
         <tr>
             <td>{{fname}}</td>
             <td>{{ftype}}</td>

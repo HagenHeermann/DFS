@@ -13,6 +13,8 @@
 
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
+var path = require('path');
+
 const __FilesDir = './Files/';
 
 module.exports = 
@@ -61,8 +63,18 @@ module.exports =
         {
             if(err)
             {
+                var s_files = [];
+                fs.readdir(__FilesDir,function(err,files){
+                    files.forEach(file=>{
+                        var ftype = path.extname(file);
+                        var fname = path.basename(file,ftype);
+                        var fi = { "fname" : fname , "ftype" : ftype };
+                        s_files.push(fi);
+                    });
+                });
+                console.log(s_files)
                 var uploaderr = "An error accured during the upload please try again";
-                resp.render('mainpage',{uploaderr});
+                resp.render('mainpage',{s_files,uploaderr});
             }
             else
             {
@@ -135,15 +147,16 @@ module.exports =
                     if(db_pw === pass)
                     {              
                         console.log("userdb: login correct user exists and pass is matching");
-                        var filenames = [];
+                        var s_files = [];
                         fs.readdir(__FilesDir,function(err,files){
                             files.forEach(file=>{
-                                var ftype = mime.lookup(file);
-                                console.log(ftype);
-                                filenames.push(file);
-                            })
+                                var ftype = path.extname(file);
+                                var fname = path.basename(file,ftype);
+                                var fi = { "fname" : fname , "ftype" : ftype };
+                                s_files.push(fi);
+                            });
                         });
-                        resp.render('mainpage',{filenames});
+                        resp.render('mainpage',{s_files});
                     }
                     else
                     {
@@ -190,15 +203,16 @@ module.exports =
                     else
                     {
                         console.log("userdb: Added user %s to the db",uname);
-                        var filenames = [];
+                        var s_files = [];
                         fs.readdir(__FilesDir,function(err,files){
                             files.forEach(file=>{
-                                var ftype = mime.lookup(file);
-                                console.log(ftype);
-                                filenames.push(file);
-                            })
+                                var ftype = path.extname(file);
+                                var fname = path.basename(file,ftype);
+                                var fi = { "fname" : fname , "ftype" : ftype };
+                                s_files.push(fi);
+                            });
                         });
-                        resp.render('mainpage',{filenames});
+                        resp.render('mainpage',{s_files});
                     }
                 });
             }

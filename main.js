@@ -11,6 +11,7 @@ TODO LIST:
     - Better CSS styling with bootstrap
     - basicly get the server up and running in an alpha state
     - summ up mainpage rendering in one function in the db module <- priority
+    - make errors general
 
     2.0 goals:
     - changing the db to mongo db
@@ -226,15 +227,17 @@ app.get('/About',function(req,resp)
 /* File Upload */
 function file_listing()
 {
-    var filenames = [];
+    console.log("userdb: login correct user exists and pass is matching");
+    var s_files = [];
     fs.readdir(__FilesDir,function(err,files){
         files.forEach(file=>{
-            var ftype = mime.lookup(file);
-            console.log(ftype);
-            filenames.push(file);
-        })
+            var ftype = path.extname(file);
+            var fname = path.basename(file,ftype);
+            var fi = { "fname" : fname , "ftype" : ftype };
+            s_files.push(fi);
+        });
     });
-    return filenames;
+    return s_files;
 }
 
 
@@ -243,8 +246,8 @@ app.post('/file_upload',function(req,resp){
    if(!req.files)
    {
        var uploaderr = "No filen given!";
-       var filenames = file_listing();
-       resp.render('mainpage',{uploaderr,filenames})
+       var s_files = file_listing();
+       resp.render('mainpage',{uploaderr,s_files})
    }
    else
    {
@@ -260,14 +263,14 @@ app.post('/file_upload',function(req,resp){
             if(err)
             {
                 var uploaderr = "Error while uploading file!";
-                var filenames = file_listing();
-                resp.render('mainpage',{uploaderr,filenames});
+                var s_files = file_listing();
+                resp.render('mainpage',{uploaderr,s_files});
                 console.log("Error moving the file to the Files directory");
             }
             else
             {
-                var filenames = file_listing();
-                resp.render('mainpage',{filenames});
+                var s_files = file_listing();
+                resp.render('mainpage',{s_files});
                 console.log("Succesfull upload");
             }
         });
@@ -288,8 +291,8 @@ app.post('/download',function(req,resp)
     if(errors)
     {
         /* Rendering the mainpage again with the error mesages */
-        var filenames = file_listing();
-        resp.render('mainpage',{errors,filenames});
+        var s_files = file_listing();
+        resp.render('mainpage',{errors,s_files});
         console.log("2");
     }
     else
