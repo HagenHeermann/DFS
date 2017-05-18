@@ -75,6 +75,7 @@ var bodyParser = require('body-parser');
 var userdbmodule = require('./userdbmodule');
 var mime = require('mime');
 var fs = require('fs');
+var util = require('./util_mod');
 const fileUpload = require('express-fileupload');
 
 const __FilesDir = './Files/';
@@ -224,29 +225,12 @@ app.get('/About',function(req,resp)
     resp.render('about');
 })
 
-/* File Upload */
-function file_listing()
-{
-    console.log("userdb: login correct user exists and pass is matching");
-    var s_files = [];
-    fs.readdir(__FilesDir,function(err,files){
-        files.forEach(file=>{
-            var ftype = path.extname(file);
-            var fname = path.basename(file,ftype);
-            var fi = { "fname" : fname , "ftype" : ftype };
-            s_files.push(fi);
-        });
-    });
-    return s_files;
-}
-
-
 app.post('/file_upload',function(req,resp){
    
    if(!req.files)
    {
        var uploaderr = "No filen given!";
-       var s_files = file_listing();
+       var s_files = util.file_listing();
        resp.render('mainpage',{uploaderr,s_files})
    }
    else
@@ -263,13 +247,13 @@ app.post('/file_upload',function(req,resp){
             if(err)
             {
                 var uploaderr = "Error while uploading file!";
-                var s_files = file_listing();
+                var s_files = util.file_listing();
                 resp.render('mainpage',{uploaderr,s_files});
                 console.log("Error moving the file to the Files directory");
             }
             else
             {
-                var s_files = file_listing();
+                var s_files = util.file_listing();
                 resp.render('mainpage',{s_files});
                 console.log("Succesfull upload");
             }
@@ -291,7 +275,7 @@ app.post('/download',function(req,resp)
     if(errors)
     {
         /* Rendering the mainpage again with the error mesages */
-        var s_files = file_listing();
+        var s_files = util.file_listing();
         resp.render('mainpage',{errors,s_files});
         console.log("2");
     }

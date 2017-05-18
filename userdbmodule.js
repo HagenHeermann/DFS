@@ -14,6 +14,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
 var path = require('path');
+var util = require('./util_mod');
 
 const __FilesDir = './Files/';
 
@@ -147,15 +148,7 @@ module.exports =
                     if(db_pw === pass)
                     {              
                         console.log("userdb: login correct user exists and pass is matching");
-                        var s_files = [];
-                        fs.readdir(__FilesDir,function(err,files){
-                            files.forEach(file=>{
-                                var ftype = path.extname(file);
-                                var fname = path.basename(file,ftype);
-                                var fi = { "fname" : fname , "ftype" : ftype };
-                                s_files.push(fi);
-                            });
-                        });
+                        var s_files = util.file_listing();
                         resp.render('mainpage',{s_files});
                     }
                     else
@@ -203,15 +196,7 @@ module.exports =
                     else
                     {
                         console.log("userdb: Added user %s to the db",uname);
-                        var s_files = [];
-                        fs.readdir(__FilesDir,function(err,files){
-                            files.forEach(file=>{
-                                var ftype = path.extname(file);
-                                var fname = path.basename(file,ftype);
-                                var fi = { "fname" : fname , "ftype" : ftype };
-                                s_files.push(fi);
-                            });
-                        });
+                        var s_files = util.file_listing();
                         resp.render('mainpage',{s_files});
                     }
                 });
