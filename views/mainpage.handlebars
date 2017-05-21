@@ -66,9 +66,9 @@
             <th> filetype </th>
         </tr>
         {{#each s_files}}
-        <tr>
-            <td>{{fname}}</td>
-            <td>{{ftype}}</td>
+        <tr onclick = "dwnl()">
+            <td  id={{fname}}>{{fname}}</td>
+            <td  id={{ftype}} >{{ftype}}</td>
         </tr>
         {{/each}}
     </table>
