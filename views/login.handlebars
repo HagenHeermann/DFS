@@ -1,70 +1,87 @@
-
-         <div class ="header">
-            <ul>
-                <li><div class="active"><a href="/">Dorm File Server</a></div><li>
-                <li><div class="active"><a href="/About">About</a></div></li>
-                <li><div class="active"><a href="/Legal">Legal</a></div></li>
-            </ul>
+        <div class ="row">
+            <div class ="header">
+                <ul>
+                    <li><div class="active"><a href="/">Dorm File Server</a></div><li>
+                    <li><div class="active"><a href="/About">About</a></div></li>
+                    <li><div class="active"><a href="/Legal">Legal</a></div></li>
+                </ul>
+            </div>
         </div>
-        <h1>DFS <small>Dorm File Server</small></h1>
-        <div class="error_box">
-            {{#if errors}}
-                {{#each errors}}
-                    <div class="alert alert-danger">{{msg}}</div><br>
-                {{/each}}
-            {{/if}}
 
-            {{#if loginerr}}
-                <div class="alert alert-danger">{{loginerr}}</div><br>
-            {{/if}}
-        
-            {{#if regerr}}
-                <div class="alert alert-danger">{{regerr}}</div><br>
-            {{/if}}
+        <div class = "row">
+            <h1>DFS <small>Dorm File Server</small></h1>
         </div>
         
-        <h2>Login</h2>
-        <form action = "http://127.0.0.1:8888/login_post" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <br>
-                <input type = "text" class="form-control" name= "username" placeholder="username here">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="error_box">
+                    {{#if errors}}
+                        {{#each errors}}
+                            <div class="alert alert-danger"><strong>{{msg}}</strong></div><br>
+                        {{/each}}
+                    {{/if}}
+
+                    {{#if loginerr}}
+                        <div class="alert alert-danger"><strong>{{loginerr}}</strong></div><br>
+                    {{/if}}
+                
+                    {{#if regerr}}
+                        <div class="alert alert-danger"><strong>{{regerr}}</strong></div><br>
+                    {{/if}}
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <br>
-                <input type = "password" class="form-control" name= "password" placeholder="password here">
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Login</h2>
+                <form action = "http://127.0.0.1:8888/login_post" method="POST">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <br>
+                        <input type = "text" class="form-control" name= "username" placeholder="username here">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <br>
+                        <input type = "password" class="form-control" name= "password" placeholder="password here">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" class="form-control" value="Submit" id="login_submit_input">
+                    </div>
+                </form>
             </div>
-            <br>
-            <div class="form-group">
-                <input type="submit" class="form-control" value="Submit" id="login_submit_input">
-            </div>
-        </form>
+        </div>
         
         <br>
         
-        <h2>Registration</h2>
-        <form action = "http://127.0.0.1:8888/registration_post" method="POST">
-            
-            <div class="form-group">
-                <label for="username">Username</label>
-                <br>
-                <input type = "text" class="form-control" name = "username" placeholder="enter username here">
-            </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Registration</h2>
+                <form action = "http://127.0.0.1:8888/registration_post" method="POST">
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <br>
+                        <input type = "text" class="form-control" name = "username" placeholder="enter username here">
+                    </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <br>
-                <input type = "password" class="form-control" name = "password0" placeholder="enter password here">
-            </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <br>
+                        <input type = "password" class="form-control" name = "password0" placeholder="enter password here">
+                    </div>
 
-            <div class="form-group">
-                <label for="password">Repeat Password</label>
-                <br>
-                <input type="password" class="form-control" name = "password1" placeholder="repeat password please">
+                    <div class="form-group">
+                        <label for="password">Repeat Password</label>
+                        <br>
+                        <input type="password" class="form-control" name = "password1" placeholder="repeat password please">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="submit" class="form-control" value="Submit" id="password_submit_input">
+                    </div>
+                </form>
             </div>
-            <br>
-            <div class="form-group">
-                <input type="submit" class="form-control" value="Submit" id="password_submit_input">
-            </div>
-        </form>
+        </div>
