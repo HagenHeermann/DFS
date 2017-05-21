@@ -1,10 +1,6 @@
 /*
 TODO LIST:
     1.0 goals:
-    - changing the file display from a listing to a table 
-    - regarding the previous todo changing all the requests for the mainpage to request that send
-      a json {fname:"filename",ftype:"filetype"} to the handlebars module so they get put in to 
-      the html file that gets send
     - Getting the onclick action going on the server side so the download starts
     - Encryption on client side for passwords and username
     - Only Encrypted user data in the databas 
