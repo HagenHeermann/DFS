@@ -7,30 +7,44 @@
         </ul>
     </div>
 </div>
-
-<h1>Welcome to shit FTP PETALUL</h1>
-<br>
-<div class="errorbox">
-    {{#if uploaderr}}
-        <div class="error">{{uploaderr}}</div>
-    {{/if}}
-
-    {{#if errors}}
-        {{#each errors}}
-            <div class="error">{{msg}}</div>
-        {{/each}}
-    {{/if}}
-</div>
-<br>
-<div class="upload_container">
-    Upload:<br>
-    <form action="/file_upload" name="upload" method = "POST" enctype="multipart/form-data">
-        <input type="file" name="file" size="50"><br>
-        <input type="submit" value="Upload File">
-    </form>
+<div class="row">
+    <div class="col-md-4">
+        <h1>Welcome to DFS <small>Dorm File Server</small></h1>
+    </div>
 </div>
 
+<div class="row">
+    <div class="col-md-2">
+        <div class="errorbox">
+            {{#if uploaderr}}
+                <div class="error">{{uploaderr}}</div>
+            {{/if}}
+
+            {{#if errors}}
+                {{#each errors}}
+                    <div class="error">{{msg}}</div>
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+
 <br>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="upload_container">
+            Upload:<br>
+            <form action="/file_upload" name="upload" method = "POST" enctype="multipart/form-data">
+                <input type="file" name="file" size="50"><br>
+                <input type="submit" value="Upload File">
+            </form>
+        </div>
+    </div>
+</div>
+
+<br>
+
 <script>
     function dl(data)
     {
@@ -60,23 +74,25 @@
     }
 </script>
 
-
-<div class = "file_container">
-    <table class = "table table-hover">
-        <tr>
-            <th> # </th>
-            <th> file name </th>
-            <th> file type </th>
-            <th> file size </th>
-        </tr>
-        {{#each s_files}}
-        <tr onclick = "dwnl()">
-            <td>{{num}}</td>
-            <td  id={{fname}}>{{fname}}</td>
-            <td  id={{ftype}} >{{ftype}}</td>
-            <td> 0 </td>
-        </tr>
-        {{/each}}
-    </table>
+<div class="row">
+    <div class="col-md-12">
+        <div class = "file_container">
+            <table class = "table table-hover">
+                <tr>
+                    <th> # </th>
+                    <th> file name </th>
+                    <th> file type </th>
+                    <th> file size </th>
+                </tr>
+                {{#each s_files}}
+                <tr onclick = "dwnl()">
+                    <td>{{num}}</td>
+                    <td  id={{fname}}>{{fname}}</td>
+                    <td  id={{ftype}} >{{ftype}}</td>
+                    <td> 0 </td>
+                </tr>
+                {{/each}}
+            </table>
+        </div>
+    </div>
 </div>
-
