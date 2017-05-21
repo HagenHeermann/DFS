@@ -71,7 +71,7 @@ li a:hover
 /*FILE CONTAINER IN THE MAINPAGE VIEW*/
 .file_container
 {
-    background:grey;
+    background:#d3d3d3;
     border: solid black;
 }
 
@@ -89,6 +89,6 @@ li a:hover
 /*UPLOAD CONTAINER IN THE MAINPAGE VIEW*/
 .upload_container
 {
-    background:grey;
+    background:#d3d3d3;
     border:solid black;
 }

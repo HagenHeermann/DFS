@@ -8,11 +8,13 @@ module.exports =
         console.log("userdb: login correct user exists and pass is matching");
         var s_files = [];
         var __FilesDir = './Files/';
+        var count = 0;
         fs.readdir(__FilesDir,function(err,files){
             files.forEach(file=>{
                 var ftype = path.extname(file);
                 var fname = path.basename(file,ftype);
-                var fi = { "fname" : fname , "ftype" : ftype };
+                var fi = { "num" : count , "fname" : fname , "ftype" : ftype };
+                count = count + 1;
                 s_files.push(fi);
             });
         });

@@ -6,24 +6,24 @@
                 <li><div class="active"><a href="/Legal">Legal</a></div></li>
             </ul>
         </div>
-        
+        <h1>DFS <small>Dorm File Server</small></h1>
         <div class="error_box">
             {{#if errors}}
                 {{#each errors}}
-                    <div class="error">{{msg}}</div><br>
+                    <div class="alert alert-danger">{{msg}}</div><br>
                 {{/each}}
             {{/if}}
 
             {{#if loginerr}}
-                <div class="error">{{loginerr}}</div><br>
+                <div class="alert alert-danger">{{loginerr}}</div><br>
             {{/if}}
         
             {{#if regerr}}
-                <div class="error">{{regerr}}</div><br>
+                <div class="alert alert-danger">{{regerr}}</div><br>
             {{/if}}
         </div>
         
-        <h1>Login</h1>
+        <h2>Login</h2>
         <form action = "http://127.0.0.1:8888/login_post" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -43,7 +43,7 @@
         
         <br>
         
-        <h1>Registration</h1>
+        <h2>Registration</h2>
         <form action = "http://127.0.0.1:8888/registration_post" method="POST">
             
             <div class="form-group">

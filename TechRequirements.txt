@@ -1,1 +1,2 @@
 Argon2 encryption or scrypt encryption
+for the ui using bootstrap the bootstrap files are already in the public dir

@@ -60,15 +60,19 @@
 
 
 <div class = "file_container">
-    <table>
+    <table class = "table table-striped">
         <tr>
-            <th> filename </th>
-            <th> filetype </th>
+            <th> # </th>
+            <th> file name </th>
+            <th> file type </th>
+            <th> file size </th>
         </tr>
         {{#each s_files}}
         <tr onclick = "dwnl()">
+            <td>{{num}}</td>
             <td  id={{fname}}>{{fname}}</td>
             <td  id={{ftype}} >{{ftype}}</td>
+            <td> 0 </td>
         </tr>
         {{/each}}
     </table>
