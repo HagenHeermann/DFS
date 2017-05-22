@@ -8,7 +8,8 @@ TODO LIST:
     - basicly get the server up and running in an alpha state
     - summ up mainpage rendering in one function in the db module <- priority
     - make errors general
-
+    - config module for customistaiton of the server
+    
     2.0 goals:
     - changing the db to mongo db
     - modulise more for easyer understanding and debugging

@@ -20,53 +20,37 @@
     </div>
 </div>
 
-<br>
-
 <div class="row">
     <div class="col-md-3">
-        <div class="upload_container">
-            Upload:<br>
-            <form action="/file_upload" name="upload" method = "POST" enctype="multipart/form-data">
-                <input type="file" name="file" size="50"><br>
-                <input type="submit" value="Upload File">
-            </form>
+        <h2>Upload</h2>
+        <div class="form-group">
+            <div class="upload_container">
+                <label for="upload">Select a File</label>
+                <form action="/file_upload" class="form-control" name="upload" method = "POST" enctype="multipart/form-data">
+                    <input type="file" name="file" size="50"><br>
+                    <input type="submit" value="Upload File">
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 <br>
+<br>
 
 <script>
-    function dl(data)
-    {
-        console.log(data);
-        var xhr = new XMLHttpRequest();
-        var url= "/download";
-        var file_data = JSON.stringify({"filename":data});
-        xhr.open("POST",url,true);
-        xhr.setRequestHeader("Content-type","application/json");
-        xhr.send(file_data);
-        console.log("clicked");
-    }
-</script>
+jQuery(document).ready(function($){
+    $("tr").dblclick(function(){
+        var id = $(this).attr('id');
+        console.log(id);
+    });
+});
 
-<script>
-    function dwnl(fname,ftype)
-    {
-        console.log(fname);
-        console.log(ftype);
-
-        var xhr = new XMLHttpRequest();
-        var url = "/download";
-        var file_data = JSON.stringify({"filename":fname,"filetype":ftype});
-        xhr.open("POST",url,true);
-        xhr.setRequestHeader("Content-type","application/json");
-        xhr.send(file_data);
-    }
 </script>
 
 <div class="row">
     <div class="col-md-12">
+        <h2>Files <small>Files that are available on the server</small></h2>
         <div class = "file_container">
             <table class = "table table-hover">
                 <tr>
@@ -76,7 +60,7 @@
                     <th> file size </th>
                 </tr>
                 {{#each s_files}}
-                <tr onclick = "dwnl()">
+                <tr id={{fname}}>
                     <td>{{num}}</td>
                     <td  id={{fname}}>{{fname}}</td>
                     <td  id={{ftype}} >{{ftype}}</td>
