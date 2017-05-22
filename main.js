@@ -282,15 +282,17 @@ app.post('/download',function(req,resp)
         console.log("3");
         /* Getting all the infos for the piping */
         var filename = req.body.filename;
-        var file = path.join(__dirname,"Files",filename);
-        var mimetype = mime.lookup(file);
+        var filetype = req.body.filetype;
+        console.log(filename);
+        console.log(filetype);
+        var file = filename + filetype;
+    
+        var file_path = path.join(__dirname,"Files",file);
         
-        /* Setting the headers for the browser */
         resp.setHeader('Content-disposition','attachment; filename='+filename);
-        resp.setHeader('Content-type',mimetype);
+        resp.setHeader('Content-type',filetype);
 
-        /* creating the file stream for the response and starting the piping */
-        var stream = fs.createReadStream(file);
+        var stream = fs.createReadStream(file_path);
         stream.pipe(resp);
     }
 })

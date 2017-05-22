@@ -41,14 +41,30 @@
 <script>
 jQuery(document).ready(function($){
     $("tr").dblclick(function(){
-        var id = $(this).attr('id');
-        console.log(id);
+        var url = "/download";
+        var fname = null;
+        var ftype = null;
+        $(this).find('td').each(function(){
+            if($(this).attr('title')=="name")
+            {
+                fname = $(this).attr('id');
+            }
+            else if($(this).attr('title')=="type")
+            {
+                ftype = $(this).attr('id');
+            }
+        });
+        var http = new XMLHttpRequest();
+        http.open("POST",url,true);
+        http.setRequestHeader("Content-type","application/json");
+        var data = JSON.stringify({"filename":fname,"filetype":ftype})
+        http.send(data);
     });
 });
 
 </script>
 
-<div class="row">
+<div class="row">s
     <div class="col-md-12">
         <h2>Files <small>Files that are available on the server</small></h2>
         <div class = "file_container">
@@ -61,10 +77,10 @@ jQuery(document).ready(function($){
                 </tr>
                 {{#each s_files}}
                 <tr id={{fname}}>
-                    <td>{{num}}</td>
-                    <td  id={{fname}}>{{fname}}</td>
-                    <td  id={{ftype}} >{{ftype}}</td>
-                    <td> 0 </td>
+                    <td  id={{num}}>{{num}}</td>
+                    <td  title="name" id={{fname}}>{{fname}}</td>
+                    <td  title="type" id={{ftype}} >{{ftype}}</td>
+                    <td  title="size"> 0 </td>
                 </tr>
                 {{/each}}
             </table>
