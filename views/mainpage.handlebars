@@ -54,14 +54,14 @@ jQuery(document).ready(function($){
                 ftype = $(this).attr('id');
             }
         });
-        var http = new XMLHttpRequest();
-        http.open("POST",url,true);
-        http.setRequestHeader("Content-type","application/json");
-        var data = JSON.stringify({"filename":fname,"filetype":ftype})
-        http.send(data);
+
+        var http_get = new XMLHttpRequest();
+        var sec_url = url + "/" + fname + ftype;
+        
+        window.open(sec_url);
+
     });
 });
-
 </script>
 
 <div class="row">s

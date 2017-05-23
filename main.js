@@ -1,14 +1,11 @@
 /*
 TODO LIST:
     1.0 goals:
-    - Getting the onclick action going on the server side so the download starts
     - Encryption on client side for passwords and username
     - Only Encrypted user data in the databas 
-    - Better CSS styling with bootstrap
     - basicly get the server up and running in an alpha state
     - summ up mainpage rendering in one function in the db module <- priority
     - make errors general
-    - config module for customistaiton of the server
     
     2.0 goals:
     - changing the db to mongo db
@@ -16,6 +13,8 @@ TODO LIST:
     - Use of session cookies
     - directory creation in the Files directory so users can structure files they upload
     - save file information in the database with uploader information time etc.
+    - config module for customistaiton of the server
+        - using of routers
 
     3.0 goals:
     -
@@ -261,42 +260,13 @@ app.post('/file_upload',function(req,resp){
     
 })
 
-/* Download GET */
-app.post('/download',function(req,resp)
-{
-    /* Check if the user has selected a file for its request */
-    req.checkBody('filename',"No file selected").notEmpty();
-    var errors = req.validationErrors();
-    console.log(req.body);
-    console.log(errors);
-    console.log("1");
-    if(errors)
-    {
-        /* Rendering the mainpage again with the error mesages */
-        var s_files = util.file_listing();
-        resp.render('mainpage',{errors,s_files});
-        console.log("2");
-    }
-    else
-    {
-        console.log("3");
-        /* Getting all the infos for the piping */
-        var filename = req.body.filename;
-        var filetype = req.body.filetype;
-        console.log(filename);
-        console.log(filetype);
-        var file = filename + filetype;
-    
-        var file_path = path.join(__dirname,"Files",file);
-        
-        resp.setHeader('Content-disposition','attachment; filename='+filename);
-        resp.setHeader('Content-type',filetype);
-
-        var stream = fs.createReadStream(file_path);
-        stream.pipe(resp);
-    }
+/* File Download */
+app.get('/download/*',function(req,resp){
+    var file = path.basename(req.path);
+    var type = path.extname(file);
+    var file_path = path.join(__dirname,"Files",file);
+    resp.download(file_path);
 })
-
 
 /* Listen start */
 var server = app.listen(port,function(){
