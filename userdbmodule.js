@@ -124,9 +124,9 @@ module.exports =
     // Done needs testing tho TODO
     handleLogin:function(DBObj,username,pass,req,resp)
     {
-        var query = "SELECT * FROM users WHERE \"username\"= \""+username+"\"";
+        var query = "SELECT * FROM users WHERE \"username\"= ?";
         var stmt = DBObj.prepare(query);
-        stmt.get(function(err,row){
+        stmt.get(username,function(err,row){
             if(err)
             {
                 console.log(err);
@@ -164,12 +164,12 @@ module.exports =
     //TODO shit doesnt realy work out as i want it to
     handleRegister:function(DBObj,uname,pass,req,resp)
     {
-        var query =  "SELECT * FROM users WHERE \"username\"= \""+uname+"\"";
+        var query =  "SELECT * FROM users WHERE \"username\"= ?";
         var stmt = DBObj.prepare(query)
         var user_registered = false;
         var val = null;
         
-        stmt.get(function(err,row)
+        stmt.get(uname,function(err,row)
         {
             if(err)
             {

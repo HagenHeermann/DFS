@@ -17,7 +17,8 @@ TODO LIST:
         - using of routers
 
     3.0 goals:
-    -
+    - admin system so admins can manage files in the ui
+
  */
 /*
 __________████████_____██████
@@ -74,7 +75,6 @@ var fs = require('fs');
 var util = require('./util_mod');
 const fileUpload = require('express-fileupload');
 
-const __FilesDir = './Files/';
 
 
 
@@ -84,11 +84,23 @@ var app = express();
 /*Creating parser obj */
 var urlencodedParser = bodyParser.urlencoded({extended:false});
 
-/*Const setups */
-const port = 8888;
+/*state object */
+var _conf =
+{
+    /* server state */
+    "port":8888,
+    "file_dir_path":"./Files/",
+    "public_dir":"public",
+
+    /* ownership state */
+    "owner_first_name":"",
+    "owner_last_name":"",
+    "owner_email_address":"",
+    "owner_tel_num":""
+}
 
 /* Setting up express */
-app.use(express.static(path.join( __dirname,'public')));
+app.use(express.static(path.join( __dirname,_conf.public_dir)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieParser());
@@ -221,40 +233,57 @@ app.get('/About',function(req,resp)
     resp.render('about');
 })
 
+/* CONTACT */
+app.get('/Contact',function(req,resp){
+    var owner_state = 
+    {
+        "owner_first_name":_conf.owner_first_name,
+        "owner_last_name":_conf.owner_last_name,
+        "owner_email_address":_conf.owner_email_address,
+        "owner_tel_num":_conf.owner_tel_num
+    }
+    resp.render('contact',{owner_state});
+})
+
 /* UPLOAD */
 app.post('/file_upload',function(req,resp){
    
+   var uploaderr = "No filen given!";
    if(!req.files)
    {
-       var uploaderr = "No filen given!";
        var s_files = util.file_listing();
        resp.render('mainpage',{uploaderr,s_files})
    }
    else
    {
-       let uploaded_file = req.files.file;
-       var filename = req.files.file.name;
-       var file_path = path.join(__dirname,"Files",filename);
+       if(!req.files.file){var s_files = util.file_listing();resp.render('mainpage',{uploaderr,s_files})}
+       else
+       {
+                
+            let uploaded_file = req.files.file;
+            var filename = req.files.file.name.replace(new RegExp(' ','g'),'');
+            var file_path = path.join(__dirname,"Files",filename);
 
-       console.log(filename);
-       console.log(file_path);
+            console.log(filename);
+            console.log(file_path);
 
-        uploaded_file.mv(file_path,function(err)
-        {
-            if(err)
-            {
-                var uploaderr = "Error while uploading file!";
-                var s_files = util.file_listing();
-                resp.render('mainpage',{uploaderr,s_files});
-                console.log("Error moving the file to the Files directory");
-            }
-            else
-            {
-                var s_files = util.file_listing();
-                resp.render('mainpage',{s_files});
-                console.log("Succesfull upload");
-            }
-        });
+                uploaded_file.mv(file_path,function(err)
+                {
+                    if(err)
+                    {
+                        var uploaderr = "Error while uploading file!";
+                        var s_files = util.file_listing();
+                        resp.render('mainpage',{uploaderr,s_files});
+                        console.log("Error moving the file to the Files directory");
+                    }
+                    else
+                    {
+                        var s_files = util.file_listing();
+                        resp.render('mainpage',{s_files});
+                        console.log("Succesfull upload");
+                    }
+                });
+        }
     }
 
     
@@ -268,11 +297,97 @@ app.get('/download/*',function(req,resp){
     resp.download(file_path);
 })
 
+/* Session Cookies */
+/* Cookie dependend on username , time , date
+    unique id so no easy fakeing
+ */
+function create_session_cookie(username)
+{
+    /* get time and date */
+
+    /* create the unique id */
+
+    /* build the cookie */
+
+    /* encryption of the cookie */
+
+    /* return cookie */
+
+}
+
+function get_unique_hash_simple()
+{
+    /* 20 char hash */
+    var hash = null;
+
+
+}
+
+/* config load */
+function load_configs()
+{
+    fs.readFile('./config.json','utf8',function(err,data)
+    {
+        if(err)
+        {
+            //console.log(err);
+            console.log("config file not found creating a new one...");
+            var stringifyed = JSON.stringify(_conf);
+            fs.writeFile("config.json",stringifyed,function(err){
+                if(err)
+                {
+                    console.log("err");
+                }
+            });
+            console.log("new config file created");
+        }
+        else
+        {
+            var conf_json_file = JSON.parse(data);
+            for(var key in conf_json_file)
+            {
+                switch(key){
+                    case "port":
+                        _conf.port = conf_json_file["port"];
+                        console.log(conf_json_file["port"]);
+                        console.log(_conf.port);
+                        break;
+                    case "owner_first_name":
+                        _conf.owner_first_name = conf_json_file["owner_first_name"];
+                        console.log(conf_json_file["owner_first_name"]);
+                        console.log(_conf.owner_first_name);
+                        break;
+                    case "owner_last_name":
+                        _conf.owner_last_name = conf_json_file["owner_last_name"];
+                        console.log(conf_json_file["owner_last_name"]);
+                        console.log(_conf.owner_last_name);
+                        break;
+                    case "owner_email_address":
+                        _conf.owner_email_address = conf_json_file["owner_email_address"];
+                        console.log(conf_json_file["owner_email_address"]);
+                        console.log(_conf.owner_email_address);
+                        break;
+                    case "owner_tel_num":
+                        _conf.owner_tel_num = conf_json_file["owner_tel_num"];
+                        console.log(conf_json_file["owner_tel_num"]);
+                        console.log(_conf.owner_tel_num);
+                        break;
+                    default:
+                        break;
+                };
+            }
+            console.log("Loaded configs")
+        }
+    })
+}
+
 /* Listen start */
-var server = app.listen(port,function(){
+load_configs();
+var server = app.listen(_conf.port,function(){
     var host = server.address().address;
     var port = server.address().port;
 
 
-    console.log("Example app listening at http://%s:%s",host,port);
+    console.log("DFS listening at http://%s:%s",host,port);
 })
+

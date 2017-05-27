@@ -1,0 +1,27 @@
+<div class="row">
+    <h1>Contact</h1>
+</div>
+<div class="row">
+    {{#if owner_state}}
+        <address>
+            <strong>Last Name:</strong>{{owner_state.owner_last_name}}
+            <br>
+            <strong>First Name:</strong>{{owner_state.owner_first_name}}
+            <br>
+            <strong>Email:</strong><a href="mailto:#">{{owner_state.owner_email_address}}</a>
+            <br>
+            <strong>Tel.Num.:</strong>{{owner_state.owner_tel_num}}
+        </address>
+    {{/if}}
+    {{#else}}
+        <address>
+            <strong>Last Name:</strong>" "
+            <br>
+            <strong>First Name:</strong>" "
+            <br>
+            <strong>Email:</strong><a href="mailto:#">" "</a> 
+            <br>
+            <strong>Tel.Num.:</strong>" "
+        </address>
+    {{/else}}
+</div>
