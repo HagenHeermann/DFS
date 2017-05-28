@@ -1,8 +1,6 @@
 /*
 TODO LIST:
     1.0 goals:
-    - Encryption on client side for passwords and username
-    - Only Encrypted user data in the databas 
     - basicly get the server up and running in an alpha state
     - summ up mainpage rendering in one function in the db module <- priority
     - make errors general
