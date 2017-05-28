@@ -73,6 +73,7 @@ var userdbmodule = require('./userdbmodule');
 var mime = require('mime');
 var fs = require('fs');
 var util = require('./util_mod');
+var cryptojs = require('crypto-js');
 const fileUpload = require('express-fileupload');
 
 
@@ -164,6 +165,7 @@ app.get('/',function(req,resp){LoginResponse(req,resp);});
 app.get('',function(req,resp){LoginResponse(req,resp);})
 
 app.post('/login_post',urlencodedParser,function(req,resp){
+    console.log("1");
     user = {
         u_name:req.body.username,
         u_pass:req.body.password 
@@ -183,6 +185,8 @@ app.post('/login_post',urlencodedParser,function(req,resp){
     }
     else
     {
+        console.log(user.u_name);
+        console.log(user.u_pass);
         userdbmodule.handleLogin(userdb,user.u_name,user.u_pass,req,resp);
         //console.log(val);
         //resp.render('mainpage');
