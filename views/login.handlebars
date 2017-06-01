@@ -1,81 +1,85 @@
-        <div class = "row">
-            <div class="col-md-4">
-                <h1>DFS <small>Dorm File Server</small></h1>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-2">
-                <div class="error_box">
-                    {{#if errors}}
-                        {{#each errors}}
-                            <div class="alert alert-danger"><strong>{{msg}}</strong></div><br>
-                        {{/each}}
-                    {{/if}}
-
-                    {{#if loginerr}}
-                        <div class="alert alert-danger"><strong>{{loginerr}}</strong></div><br>
-                    {{/if}}
-                
-                    {{#if regerr}}
-                        <div class="alert alert-danger"><strong>{{regerr}}</strong></div><br>
-                    {{/if}}
+        <div class="login-0-row">
+            <div class = "row">
+                <div class="col-md-4">
+                    <h1>DFS <small>Dorm File Server</small></h1>
                 </div>
             </div>
         </div>
         
-        <script src="/js/lrsha.js"></script>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Login</h2>
-                <form action = "/login_post" id="login_form" method="POST" onsubmit="return login_hash(this);">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <br>
-                        <input type = "text" id="login_u_name" class="form-control" name= "username" placeholder="username here">
+        <div class="login-error-row">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="error_box">
+                        {{#if errors}}
+                            {{#each errors}}
+                                <div class="alert alert-danger"><strong>{{msg}}</strong></div><br>
+                            {{/each}}
+                        {{/if}}
+
+                        {{#if loginerr}}
+                            <div class="alert alert-danger"><strong>{{loginerr}}</strong></div><br>
+                        {{/if}}
+                    
+                        {{#if regerr}}
+                            <div class="alert alert-danger"><strong>{{regerr}}</strong></div><br>
+                        {{/if}}
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <br>
-                        <input type = "password" id="login_u_pw" class="form-control" name= "password" placeholder="password here">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" id="login_submit">Submit</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-
-        <br>
         
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Registration</h2>
-                <form action = "/registration_post" id="registration_form" method="POST" onsubmit="return registration_hash(this);">
-                    
-                    <div class="form-group">
-                        <label for="username">Username</label>
+        <div class="login-1-row">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Login</h2>
+                    <form action = "/login_post" id="login_form" method="POST" onsubmit="return login_hash(this);">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <br>
+                            <input type = "text" id="login_u_name" class="form-control" name= "username" placeholder="username here">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <br>
+                            <input type = "password" id="login_u_pw" class="form-control" name= "password" placeholder="password here">
+                        </div>
                         <br>
-                        <input type = "text" class="form-control" name = "username" placeholder="enter username here">
-                    </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="login_submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-2-row">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Registration</h2>
+                    <form action = "/registration_post" id="registration_form" method="POST" onsubmit="return registration_hash(this);">
+                        
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <br>
+                            <input type = "text" class="form-control" name = "username" placeholder="enter username here">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <br>
-                        <input type = "password" class="form-control" name = "password0" placeholder="enter password here">
-                    </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <br>
+                            <input type = "password" class="form-control" name = "password0" placeholder="enter password here">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password">Repeat Password</label>
+                        <div class="form-group">
+                            <label for="password">Repeat Password</label>
+                            <br>
+                            <input type="password" class="form-control" name = "password1" placeholder="repeat password please">
+                        </div>
                         <br>
-                        <input type="password" class="form-control" name = "password1" placeholder="repeat password please">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <button type="submit" id ="registration_submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <button type="submit" id ="registration_submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>

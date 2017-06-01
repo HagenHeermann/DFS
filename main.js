@@ -300,30 +300,17 @@ app.get('/download/*',function(req,resp){
 })
 
 /* Session Cookies */
-/* Cookie dependend on username , time , date
-    unique id so no easy fakeing
- */
-function create_session_cookie(username)
-{
-    /* get time and date */
 
-    /* create the unique id */
-
-    /* build the cookie */
-
-    /* encryption of the cookie */
-
-    /* return cookie */
-
-}
-
-function get_unique_hash_simple()
-{
-    /* 20 char hash */
-    var hash = null;
-
-
-}
+app.get('/mainpage',function(req,resp){
+    var cookie = req.session;
+    var val = validate_cookie(cookie);
+    if(val)
+    {}
+    else
+    {
+        response.render('login');
+    }
+})
 
 /* config load */
 function load_configs()
@@ -383,8 +370,25 @@ function load_configs()
     })
 }
 
+
+
+/* Cookie validation and creation */
+function validate_cookie(cookie)
+{
+    /* age check */
+
+    /* credential check */
+
+    return true;
+}
+
+function create_cookie()
+{
+
+}
 /* Listen start */
 load_configs();
+//userdbmodule.logUsers();
 var server = app.listen(_conf.port,function(){
     var host = server.address().address;
     var port = server.address().port;
